@@ -5,49 +5,49 @@
     <meta name="viewport" content="initial-scale=1, width=device-width" />
     <link rel="stylesheet" href="../stylesheets/style.css" />
     <title> <%= title %></title>  
+    <script defer >
+        function changePreview(newImage,ref){
+            
+            const preview= document.querySelector(`#preview`)
+
+preview.style.opacity=0
+preview.src=newImage
+
+preview.style.opacity=1
+
+          
+
+        }
+    </script>
   </head>
   <body class="m-0 tracking-widest bg-[#D7CEB2] font-thin font-helvetica-neue ">
-    <picture class="absolute h-[100vh]  w-screen -z-20  ">
-        <img class="h-[100vh] w-screen"
-        sizes="(max-width: 1400px) 100vw, 1400px"
-        srcset="
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_200.jpg 200w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_434.jpg 434w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_592.jpg 592w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_698.jpg 698w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_799.jpg 799w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_909.jpg 909w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_1000.jpg 1000w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_1073.jpg 1073w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_1156.jpg 1156w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_1238.jpg 1238w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_1317.jpg 1317w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_1391.jpg 1391w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_1400.jpg 1400w"
-        src="../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_1400.jpg"
-        alt="">
-        <div class="relative -top-28 "><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1512 164" fill="none">
-            <rect width="1512" height="100%" fill="url(#paint0_linear_14_6)"/>
-            <defs>
-            <linearGradient id="paint0_linear_14_6" x1="756" y1="0" x2="756" y2="164" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#CFCDCF" stop-opacity="0.5"/>
-            <stop offset="1" stop-color="#D7CEB2"/>
-            </linearGradient>
-            </defs>
-            </svg></div>
-        </picture>
-    <%- include('nav') -%>
-
-    <main class="px-28">
-        <section class="h-[100vh] ">
-           <h1 class="text-13xl py-16 text-[#f5f5f5] ">Fashion is a statement<br>
-            make sure you say the right thing</h1>
-            <a role="button" href="/collection/" class=" px-6 hover:bg-[#F5F5F5] hover:text-[#3C3C34] py-5  no-underline bg-[#3C3C34] text-[#F5F5F5]">Shop All</a>        
-        
+<%- include('nav') -%>
+        <main class="px-28 ">
+            <section class="grid grid-cols-3 grid-rows-4 gap-5 my-[5rem] h-[60vh]">
+                <section class="previewImages stretch w-full h-full grid grid-cols-3 grid-rows-3 col-span-2 row-span-4 gap-5">
+                    <img id="a" onclick="changePreview(this.src,this)" class="col-start-1  col-end-1 h-full w-full" src="<%= item.src[0] %>">
+                    <img id="b" onclick="changePreview(this.src,this)" class="col-start-1 col-end-1 row-start-2 row-end-2 h-full w-full " src="<%= item.src[1] %>">
+                    <img id="c" onclick="changePreview(this.src,this)" class="col-start-1 col-end-1 row-start-3 row-end-3 h-full w-full" src="<%= item.src[2] %>">
+                    <img id="preview"  class="h-full w-full col-span-2 row-span-3 transition-opacity ease-in-out duration-[3s]" src="<%= item.src[0] %>">
+                </section>
+            
+<section class="flex flex-col ">
+<h1 class="m-0 text-13xl font-light"><%= item.name %></h1>
+<p>$<%= item.price %></p>
+<p class="overflow-auto">
+    <%= item.description %>
+</p>
+</section>
+<section class=" flex col-start-3 row-start-4 row-end-4 mt-6 relative items-end ">
+    <a role="button" href="edit/" class="inline-block  p-3 mr-5 no-underline bg-[#3C3C34] text-[#F5F5F5]">Edit</a>        
+    <a role="button" href="delete" class="inline-block p-3 no-underline bg-[#3C3C34] text-[#F5F5F5]">Delete</a>        
+</section>
+            </section>
         </section>
+
         <h1 class="text-center  font-light pb-12 text-17xl text-[#3C3C34]">collections</h1>
-        <section class="grid my-10 gap-8 max-h-[60vh] grid-cols-2 grid-rows-2 grid-flow-col">
-        <article class="relative row-span-2 ">  
+        <section class="grid my-10 gap-8 max-h-[60vh] grid-cols-3  grid-flow-row">
+        <article class="relative  ">  
             <picture >
                 <source
                 media="(max-width: 767px)"
@@ -78,8 +78,7 @@
                     <a role="button" href="/collection/" class=" block py-2 no-underline font-light text-[#F5F5F5]">Brows all collections</a>        
                 </div>
         </article>
-        <article class="grid row-span-2 grid-rows-2 gap-8 w-[100%] h-[100%]">
-        <article class=" row-span-1 relative" >
+        <article class="  relative" >
             <picture>
                 <source
                 media="(max-width: 767px)"
@@ -108,7 +107,7 @@
                     <a role="button" href="/collection/accessory" class=" block py-2 no-underline font-light text-[#F5F5F5]">Accessory</a>        
         
                 </div></article>
-        <article class=" row-span-1 relative">
+        <article class="  relative">
             <picture>
                 <img class="w-[100%] h-[100%]"
                 sizes="(max-width: 1400px) 100vw, 1400px"
@@ -129,11 +128,14 @@
                     <a role="button" href="/collection/buttonup" class=" block py-2 no-underline font-light text-[#F5F5F5]">Button up</a>        
                 </div>
         </article>
-        </article>
         </section>
-            </main>
-
+                </main>
+          
+  
 <%- include('footer') -%>
-
 </body>
 </html> 
+
+
+
+

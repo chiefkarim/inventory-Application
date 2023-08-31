@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="../stylesheets/style.css" />
+ <title> <%= title %></title>  
+  </head>
+  <body class="m-0 tracking-widest bg-[#D7CEB2] font-thin font-helvetica-neue ">
+    <picture class="absolute  -z-20">
+      <source
+      media="(max-width: 767px)"
+      sizes="(max-width: 767px) 100vw, 767px"
+      srcset="
+      ../images/background/clark-street-mercantile-qnKhZJPKFD8-unsplash_d7dfcv_ar_1_1,c_fill,g_auto__c_scale,w_200.jpg 200w,
+      ../images/background/clark-street-mercantile-qnKhZJPKFD8-unsplash_d7dfcv_ar_1_1,c_fill,g_auto__c_scale,w_457.jpg 457w,
+      ../images/background/clark-street-mercantile-qnKhZJPKFD8-unsplash_d7dfcv_ar_1_1,c_fill,g_auto__c_scale,w_643.jpg 643w,
+      ../images/background/clark-street-mercantile-qnKhZJPKFD8-unsplash_d7dfcv_ar_1_1,c_fill,g_auto__c_scale,w_767.jpg 767w">
+      <source
+      media="(min-width: 768px) and (max-width: 991px)"
+      sizes="(max-width: 991px) 70vw, 694px"
+      srcset="
+      ../images/background/clark-street-mercantile-qnKhZJPKFD8-unsplash_d7dfcv_ar_4_3,c_fill,g_auto__c_scale,w_538.jpg 538w,
+      ../images/background/clark-street-mercantile-qnKhZJPKFD8-unsplash_d7dfcv_ar_4_3,c_fill,g_auto__c_scale,w_694.jpg 694w">
+      <img class="w-screen h-[100vh]"
+      sizes="(max-width: 3500px) 40vw, 1400px"
+      srcset="
+      ../images/background/clark-street-mercantile-qnKhZJPKFD8-unsplash_d7dfcv_c_scale,w_397.jpg 397w,
+      ../images/background/clark-street-mercantile-qnKhZJPKFD8-unsplash_d7dfcv_c_scale,w_653.jpg 653w,
+      ../images/background/clark-street-mercantile-qnKhZJPKFD8-unsplash_d7dfcv_c_scale,w_856.jpg 856w,
+      ../images/background/clark-street-mercantile-qnKhZJPKFD8-unsplash_d7dfcv_c_scale,w_1034.jpg 1034w,
+      ../images/background/clark-street-mercantile-qnKhZJPKFD8-unsplash_d7dfcv_c_scale,w_1227.jpg 1227w,
+      ../images/background/clark-street-mercantile-qnKhZJPKFD8-unsplash_d7dfcv_c_scale,w_1326.jpg 1326w,
+      ../images/background/clark-street-mercantile-qnKhZJPKFD8-unsplash_d7dfcv_c_scale,w_1400.jpg 1400w"
+      src="../images/background/clark-street-mercantile-qnKhZJPKFD8-unsplash_d7dfcv_c_scale,w_1400.jpg"
+      alt="">
+      
+      <div class="relative -top-[100vh] "><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100vh" viewBox="0 0 1512 100vh" fill="none">
+          <rect width="1512" height="100%" fill="url(#paint0_linear_14_6)"/>
+          <defs>
+          <linearGradient id="paint0_linear_14_6" x1="756" y1="0" x2="756" y2="100vh" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#CFCDCF" stop-opacity="0.5"/>
+          <stop offset="1" stop-color="#D7CEB2"/>
+          </linearGradient>
+          </defs>
+          </svg></div>
+      </picture>
+  
+<%- include('nav',{title:'collection'}) -%>
+
+        <main class="px-28">
+
+
+
+
+        
+            <section class="h-[85vh] ">
+               <h1 class="text-29xl py-16 text-[#3B3B3B] ">build your wardrobe with the  basics
+                and start mixing and matching
+                show your personality</h1>
+            
+            </section>
+            <h1 class="text-center  font-light pb-16 text-17xl text-[#3C3C34]">collections</h1>
+            <section class="flex flex-wrap justify-center ">
+            <% items.forEach(function(item){ %>
+            <div class="ProductCard w-60  m-5 h-72 p-5 bg-[#3C3C34] flex-col justify-start items-start inline-flex">
+              <div    class="FixedRatioImage  bg-center bg-cover  self-stretch h-[72%] flex-col justify-start items-start flex  w-full object-cover" style="background:url(<%= item.src[1] %>) ;background-size:cover;background-position: center center;">
+              
+              </div>
+              <div class="ProductCardContent self-stretch h-20 py-3 flex-col justify-start items-start gap-3 flex">
+                <div class="Frame48095622 self-stretch h-8 flex-col justify-start items-start gap-2 flex">
+                  <p class="BrandCategory w-36 p-0 m-0 text-zinc-100 text-xs font-light uppercase leading-3 tracking-wider"></p>
+                  <p class="ProductName p-0 m-0 self-stretch text-stone-50 text-2xl font-bold leading-loose"><%= item.name %></p>
+                </div>
+                <div class="ProductPrice justify-start items-start gap-2.5 inline-flex">
+                  <p class="Price p-0 m-0 text-stone-50 font-light leading-snug">$<%= item.price %></p>
+                </div>
+                <div class="flex self-stretch flex-col"> 
+                           <a role="button" href="/item/<%= item._id %>" class=" self-end p-1.5 font-light text-[#3C3C34] no-underline bg-[#F5F5F5]">Shop now</a>        
+                </div>
+              </div>
+            </div>
+            
+            <% }) %>
+          </section>
+                </main>  
+<%- include('footer')  -%>
+
+  </body>
+  </html>
