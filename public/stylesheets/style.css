@@ -99,9 +99,6 @@
 .static {
     position: static
 }
-.fixed {
-    position: fixed
-}
 .absolute {
     position: absolute
 }
@@ -341,41 +338,11 @@
     --tw-bg-opacity: 1;
     background-color: rgb(245 245 245 / var(--tw-bg-opacity))
 }
-.bg-\[\] {
-    background-color: 
-}
 .bg-opacity-60 {
     --tw-bg-opacity: 0.6
 }
 .bg-\[url\(\'\.\.\/images\/background\/clark-street-mercantile-qnKhZJPKFD8-unsplash_d7dfcv_ar_1_1\2c c_fill\2c g_auto__c_scale\2c w_200\.jpg\'\)\] {
     background-image: url('../images/background/clark-street-mercantile-qnKhZJPKFD8-unsplash_d7dfcv_ar_1_1,c_fill,g_auto__c_scale,w_200.jpg')
-}
-.bg-\[url\(\'https\:\/\/cdn\.shopify\.com\/s\/files\/1\/0628\/7304\/3159\/products\/2015-03-30_Jake_Look_20_21758_16592\.jpg\?v\=1645894847\'\)\] {
-    background-image: url('https://cdn.shopify.com/s/files/1/0628/7304/3159/products/2015-03-30_Jake_Look_20_21758_16592.jpg?v=1645894847')
-}
-.bg-\[url\(url-\)\] {
-    background-image: url(url-)
-}
-.bg-\[url\(url\(\)\)\] {
-    background-image: url(url())
-}
-.bg-\[url\(url\(\<\)\)\] {
-    background-image: url(url(<))
-}
-.bg-\[url\(url\(\<\%\=\)\)\] {
-    background-image: url(url(<%=))
-}
-.bg-\[url\(\)\] {
-    background-image: url()
-}
-.bg-\[url\(\>\)\] {
-    background-image: url(>)
-}
-.bg-\[url\(\<\)\] {
-    background-image: url(<)
-}
-.bg-\[url\(\<\%\)\] {
-    background-image: url(<%)
 }
 .bg-cover {
     background-size: cover
@@ -393,17 +360,14 @@
 .p-1 {
     padding: 0.25rem
 }
+.p-1\.5 {
+    padding: 0.375rem
+}
 .p-3 {
     padding: 0.75rem
 }
 .p-5 {
     padding: 1.25rem
-}
-.p-2 {
-    padding: 0.5rem
-}
-.p-1\.5 {
-    padding: 0.375rem
 }
 .px-28 {
     padding-left: 7rem;

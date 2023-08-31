@@ -15,7 +15,7 @@ const collectionSchema = new Schema({
 });
 
 collectionSchema.virtual("url").get(function () {
-  return "/item/" + this._id; // this refers to the current item object
+  return "/collection/" + this._id; // this refers to the current item object
 });
 
 module.exports = mongoose.model("Collection", collectionSchema);

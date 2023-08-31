@@ -13,6 +13,6 @@ const ItemSchema = new Schema({
 });
 
 ItemSchema.virtual("url").get(function () {
-  return "/catalog/item/" + this._id; // this refers to the current item object
+  return "/item/" + this._id; // this refers to the current item object
 });
 module.exports = mongoose.model("Item", ItemSchema);
