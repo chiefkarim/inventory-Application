@@ -1,5 +1,9 @@
 const asyncHandler = require("express-async-handler");
 const itemModel = require("../models/item");
+const collectionModel = require('../models/collection')
+const { body, validationResult } = require("express-validator");
+const path = require("path");
+
 
 exports.list = asyncHandler(async(req,res,next)=>{
     res.render('item',{title:'item'})
@@ -14,15 +18,79 @@ exports.detail = asyncHandler(async(req,res,next)=>{
 
 // display edit item page on Get
 exports.edit_get = asyncHandler(async(req,res,next)=>{
-    console.log(req.params.id)
-    res.render('editItem',{title:'item',})
+    let item = await itemModel.findById({_id: req.params.id});
+    const collections = await collectionModel.find({})
+
+    res.render('editItem',{title:'item',item:item,collections:collections,})
 })
 
 // handel edited item on Post
-exports.edit_post = asyncHandler(async(req,res,next)=>{
-    console.log(req.params.id)
-    let item=await itemModel.findByIdAndUpdate({},{$set:{'status':'active'}});
+exports.edit_post = [ 
+    body('name','Item name must contain at least 3 characters and 100 at max')
+    .trim()
+    .isLength({min:1})
+    .escape(),
+    body('price','price must range from 1 and up')
+    .trim()
+    .escape(),
+    body('stock','quantity must range from 0 and up')
+    .trim()
+    .escape()
+    ,asyncHandler(async(req,res,next)=>{
+        // extracting errors 
+        const errors = validationResult(req)
+        let item = await itemModel.findById({_id: req.params.id});
+console.log(req.files,req.body)
 
+        const newitem = new itemModel({name: req.body.name,
+            price:req.body.price,
+                stock : req.body.stock,
+                description:req.body.description,
+                category:req.body.category,
+                src:req.body.src
+        })
+        const collections = await collectionModel.find()
+        //verifying that the category exists
+        let category=false
+        for(let i=0; i<collections.length;i++){
 
-    res.redirect(`/item/${req.params.id}`,{title:'item',})
-})
+            if (collections[i].name === req.body.category){
+                category=true
+            }
+        }
+        if(category === false){
+            errors.errors.push({msg:'please chose one of the available collections',path:'category'})
+        }
+
+        if(!errors.isEmpty()){
+          console.log(errors)
+            res.render('editItem',{title:'edit item',errors:errors.array(),item:item,collections:collections})
+            return
+        } else{
+            const itemExists = await itemModel.find({name: req.body.name
+                
+            }).exec()
+            if (itemExists){
+              //  await newitem.save()
+              let categoryId=await collectionModel.find({name:req.body.category},{_id:1})
+                categoryId=categoryId[0]['_id']
+                
+const src = []
+for (let file of req.files){
+src.push(file.filename)
+}
+const updatedItem = await itemModel.findByIdAndUpdate(
+  req.params.id,
+  { name: req.body.name,
+    price:req.body.price,
+        stock : req.body.stock,
+        description:req.body.description,
+        category:categoryId,
+        src:src}, // Use $set to update fields without modifying _id
+  { new: true } // This option returns the modified document
+).exec();
+              res.redirect(updatedItem.url)
+            }
+        }
+    //let item=await itemModel.findByIdAndUpdate({},{$set:{'status':'active'}});
+})]

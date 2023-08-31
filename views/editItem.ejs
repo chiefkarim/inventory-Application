@@ -11,8 +11,53 @@
   <body class="m-0 tracking-widest bg-[#D7CEB2] font-thin font-helvetica-neue ">
     <%- include('nav') -%>
 
-        <h1>editing items</h1>
+<main class="px-28 ">
+    <section >
+        <h1><%= item.name %></h1>
+        <form class="grid gap-10  " action="" method="post" multiple enctype="multipart/form-data">
+          <span>
+            <% if (typeof errors == 'object' && errors) { %>
+              <%= errors[0].msg %>
+              <% } %>
+          </span>
+        <label> Name:        
+            <input type="text" name="name"  max="100" >
+        </label>
+        <label> price:        
+          <input type="number" name="price" min="-3" max="100">
+      </label>
+      <label> quantity:        
+        <input type="number" name="stock" min="0" >
+    </label>
+    <label>
+        collection
+    <select name="category">
+      <% collections.forEach(function(collection){ %>
+<option value='<%= collection.name %>'><%= collection.name %></option>
+      <% }) %>
+    </select>
+</label>
+    <label> Description:        
+<textarea name="" id="" cols="30" rows="10"></textarea>     
+</label>
+    <label> photos:        
+      <input type="file" name="src" accept="image/*" multiple>
+  </label>
+    <% if (typeof errors == 'object' && errors) { %>
+      <% errors.forEach(function(error){ %>
+        <span>
 
+      <%= error.msg %>
+      </span>
+
+      <% }) %>
+      <% } %>
+  
+  <button type="submit">Submit</button>
+</form>
+
+    </section>
+</main>
         <%- include('footer') -%>
 
   </body>

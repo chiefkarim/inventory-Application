@@ -6,35 +6,7 @@
     <link rel="stylesheet" href="../stylesheets/style.css" />
   </head>
   <body class="m-0 tracking-widest bg-[#D7CEB2] font-thin font-helvetica-neue ">
-    <picture class="absolute h-[100vh]  w-screen -z-20  ">
-        <img class="h-[100vh] w-screen"
-        sizes="(max-width: 1400px) 100vw, 1400px"
-        srcset="
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_200.jpg 200w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_434.jpg 434w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_592.jpg 592w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_698.jpg 698w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_799.jpg 799w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_909.jpg 909w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_1000.jpg 1000w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_1073.jpg 1073w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_1156.jpg 1156w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_1238.jpg 1238w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_1317.jpg 1317w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_1391.jpg 1391w,
-        ../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_1400.jpg 1400w"
-        src="../images/background/rooftop-city-fashion_x0ee6e_c_scale,w_1400.jpg"
-        alt="">
-        <div class="relative -top-28 "><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1512 164" fill="none">
-            <rect width="1512" height="100%" fill="url(#paint0_linear_14_6)"/>
-            <defs>
-            <linearGradient id="paint0_linear_14_6" x1="756" y1="0" x2="756" y2="164" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#CFCDCF" stop-opacity="0.5"/>
-            <stop offset="1" stop-color="#D7CEB2"/>
-            </linearGradient>
-            </defs>
-            </svg></div>
-        </picture>
+
         <nav class="px-28  py-0  flex justify-between bg-[#3C3C34]">
 
             <div class="text-5xl flex  ">
@@ -44,37 +16,32 @@
             <a  role="button" href="/About" class="text-5xl  px-6 py-6   no-underline text-[#F5F5F5]  ">About us</a>        
         </nav>
         <main class="px-28">
+          <main>
+            <section >
+                <h1><%= item.name %></h1>
+                <form class="grid gap-10 ">
+                <label> Name:        
+                    <input type="text" name="name" min="3" max="100" required>
+                </label>
+                <label> price:        
+                  <input type="number" name="price" min="3" max="100">
+              </label>
+              <label> quantity:        
+                <input type="number" name="stock" min="0" >
+            </label>
+            <select>
+              
+            </select>
+            <label> Description:        
+<textarea name="" id="" cols="30" rows="10"></textarea>     
+     </label>
+            <label> photos:        
+              <input type="file" name="src" accept="image/*" multiple>
+          </label>
+        </form>
 
-
-
-
-        
-            <section class="h-[85vh] ">
-               <h1 class="text-29xl py-16 text-[#3B3B3B] ">build your wardrobe with the  basics
-                and start mixing and matching
-                show your personality</h1>
-            
             </section>
-            <h1 class="text-center  font-light pb-16 text-17xl text-[#3C3C34]">collections</h1>
-            
-            <div class="ProductCard w-60 h-72 p-5 bg-[#3C3C34] flex-col justify-start items-start inline-flex">
-              <div class="FixedRatioImage  bg-[url('../images/background/clark-street-mercantile-qnKhZJPKFD8-unsplash_d7dfcv_ar_1_1,c_fill,g_auto__c_scale,w_200.jpg')] self-stretch h-[72%] flex-col justify-start items-start flex">
-                
-               
-              </div>
-              <div class="ProductCardContent self-stretch h-20 py-3 flex-col justify-start items-start gap-3 flex">
-                <div class="Frame48095622 self-stretch h-8 flex-col justify-start items-start gap-2 flex">
-                  <p class="BrandCategory w-36 p-0 m-0 text-zinc-100 text-xs font-light uppercase leading-3 tracking-wide">brand/category</p>
-                  <p class="ProductName p-0 m-0 self-stretch text-stone-50 text-2xl font-bold leading-loose">Product Name</p>
-                </div>
-                <div class="ProductPrice justify-start items-start gap-2.5 inline-flex">
-                  <p class="Price p-0 m-0 text-stone-50 font-light leading-snug">$1199</p>
-                </div>
-                <div class="text"> 
-                           <a role="button" href="/" class="  p-1 font-light text-[#3C3C34] no-underline bg-[#F5F5F5]">Shop now</a>        
-                </div>
-              </div>
-            </div>
+        </main>
                 </main>
           
   
