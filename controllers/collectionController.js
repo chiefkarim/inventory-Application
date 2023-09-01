@@ -116,3 +116,9 @@ else{
 }
     })
 ]
+
+//handling deleting a collection
+exports.delete = asyncHandler(async(req,res,next)=>{
+    await collectionModel.findByIdAndDelete(req.params.id)
+    res.redirect('/collection')
+})

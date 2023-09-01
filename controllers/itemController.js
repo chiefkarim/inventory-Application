@@ -117,3 +117,8 @@ const updatedItem = await itemModel.findByIdAndUpdate(
         }
 })]
 
+//handling deleting a collection
+exports.delete = asyncHandler(async(req,res,next)=>{
+    await itemModel.findByIdAndDelete(req.params.id)
+    res.redirect('/collection')
+})

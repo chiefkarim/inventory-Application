@@ -23,6 +23,9 @@ router.get("/", collection_controller.list);
 router.get("/:id/edit/",collection_controller.edit_get)
 router.post("/:id/edit/",upload.single('src'),collection_controller.edit_post)
 
+//handling deleting collection POST
+router.post('/:id/delete',collection_controller.delete)
+
 //handling create collection request GET
 router.get("/create",collection_controller.create_get)
 

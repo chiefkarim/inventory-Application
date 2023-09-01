@@ -26,5 +26,7 @@ router.get('/:id',item_controller.detail)
 router.get('/:id/edit',item_controller.edit_get)
 router.post('/:id/edit',upload.array('src',10),item_controller.edit_post)
 
+//handling deleting POST
+router.post('/:id/delete',item_controller.delete)
 
 module.exports = router
