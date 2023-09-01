@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title> <%= title %></title>  
+
+  </head>
+
+  <body class="m-0 tracking-widest bg-[#D7CEB2] font-thin font-helvetica-neue ">
+    <%- include('nav') -%>
+
+<main class="px-28 ">
+    <section >
+      <% if (typeof item == 'object' && item) { %>
+        
+        <h1><%= item.name %></h1>
+        <% } %>
+        <form class="grid gap-10 " id="itemDetails" action="" method="post" multiple enctype="multipart/form-data">
+          
+          <label>
+            collection
+        <select name="category">
+          <% collections.forEach(function(collection){ %>
+    <option value='<%= collection.name %>'><%= collection.name %></option>
+          <% }) %>
+        </select>
+    </label>
+
+    <label> Description:        
+<textarea name="description" id="" cols="30" rows="10"></textarea>     
+</label>
+    <label> photos:        
+      <input type="file" name="src" accept="image/*" >
+  </label>
+    <% if (typeof errors == 'object' && errors) { %>
+      <% errors.forEach(function(error){ %>
+        <span>
+
+      <%= error.msg %>
+      </span>
+
+      <% }) %>
+      <% } %>
+      
+  <button type="submit">Submit</button>
+</form>
+
+    </section>
+</main>
+        <%- include('footer') -%>
+
+  </body>
+</html>

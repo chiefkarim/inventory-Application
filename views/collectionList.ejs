@@ -66,12 +66,11 @@
                 <% collections.forEach(function(collection){ %>
                 
                 <article class="relative w-[22vw] m-5">  
+                  <a role="button" href="/collection/<%= collection._id %>/edit" class="absolute  right-0 block py-2 px-3 no-underline font-light bg-[#3C3C34] text-[#F5F5F5]">Edit</a>        
                    <a href="/collection/<%= collection._id %>">
-                        <img class="h-[100%] w-[100%]" 
+                        <img class="h-[100%] w-[100%] " 
                         src="<%= collection.src %>" 
-                        alt="<%= collection.name %>">
-                        
-                
+                        alt="<%= collection.name %>">               
                         <div class="absolute bg-[#3C3C34] bg-opacity-60 text-[#ffff] bottom-0 left-0 flex w-full justify-center items-center ">
                             <a role="button" href="/collection/<%= collection._id %>" class=" block py-2 no-underline font-light text-[#F5F5F5]"><%= collection.name %></a>        
                         </div>

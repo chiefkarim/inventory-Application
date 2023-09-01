@@ -4,16 +4,14 @@ const collectionModel = require('../models/collection')
 const { body, validationResult } = require("express-validator");
 const path = require("path");
 
-
+//items List
 exports.list = asyncHandler(async(req,res,next)=>{
     res.render('item',{title:'item'})
 })
 
 // display item details on Get
 exports.detail = asyncHandler(async(req,res,next)=>{
-    console.log('hey')
     let item = await itemModel.findById({_id: req.params.id});
-    console.log('item:',req.params.id)
     res.render('item',{name:req.params.id,title:'item',item:item})
 })
 
@@ -49,7 +47,6 @@ exports.edit_post = [
 
         item= await itemModel.findById({_id: req.params.id});
         }
-console.log(req.files,req.body)
 
         //verifying that the category exists
         let category=false
