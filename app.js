@@ -28,10 +28,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-
-app.use("/", indexRouter);
-app.use("/collection", collectionRouter);
-app.use("/item", express.static(path.join(__dirname, "uploads")),itemRouter);
+app.use("/",express.static(path.join(__dirname, "uploads")),indexRouter);
+app.use("/collection", express.static(path.join(__dirname, "uploads")),collectionRouter);
+app.use("/item",express.static(path.join(__dirname, "uploads")),itemRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
