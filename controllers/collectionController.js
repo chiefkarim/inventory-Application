@@ -16,3 +16,4 @@ exports.list_items = asyncHandler(async(req,res,next)=>{
     console.log(items,req.params.id)
     res.render('collectionItems',{title:req.params.id,items:items,})
 })
+// edit collection

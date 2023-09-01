@@ -13,8 +13,11 @@
 
 <main class="px-28 ">
     <section >
+      <% if (typeof item == 'object' && item) { %>
+        
         <h1><%= item.name %></h1>
-        <form class="grid gap-10  " action="" method="post" multiple enctype="multipart/form-data">
+        <% } %>
+        <form class="grid gap-10 " id="itemDetails" action="" method="post" multiple enctype="multipart/form-data">
           <span>
             <% if (typeof errors == 'object' && errors) { %>
               <%= errors[0].msg %>
@@ -38,7 +41,7 @@
     </select>
 </label>
     <label> Description:        
-<textarea name="" id="" cols="30" rows="10"></textarea>     
+<textarea name="description" id="" cols="30" rows="10"></textarea>     
 </label>
     <label> photos:        
       <input type="file" name="src" accept="image/*" multiple>
@@ -52,7 +55,7 @@
 
       <% }) %>
       <% } %>
-  
+      
   <button type="submit">Submit</button>
 </form>
 
