@@ -117,8 +117,3 @@ const updatedItem = await itemModel.findByIdAndUpdate(
         }
 })]
 
-//handling create item GET
-exports.create_get = asyncHandler(async(req,res,next)=>{
-
-
-})

@@ -19,11 +19,18 @@ const upload = multer({ storage: storage })
 router.get("/", collection_controller.list);
 //editing collections 
 
-//handling request GET
+//handling edit collection request GET 
 router.get("/:id/edit/",collection_controller.edit_get)
 router.post("/:id/edit/",upload.single('src'),collection_controller.edit_post)
 
+//handling create collection request GET
+router.get("/create",collection_controller.create_get)
 
+//handling create collection request POST
+router.post("/create",upload.single('src'),collection_controller.create_post)
+
+// show all items in a specified collection
 router.get("/:id", collection_controller.list_items);
+
 
 module.exports = router;

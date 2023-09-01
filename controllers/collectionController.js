@@ -16,11 +16,9 @@ exports.list = asyncHandler(async (req, res, next)=>{
 exports.list_items = asyncHandler(async(req,res,next)=>{
 
     const items = await itemModel.find({category:req.params.id}).populate('category').exec()
-    console.log(items,req.params.id)
     res.render('collectionItems',{title:req.params.id,items:items,})
 })
-// edit collection
-//handling edit page GET
+
 
 //handling editing request GET
 exports.edit_get = asyncHandler(async(req,res,next)=>{
@@ -29,6 +27,7 @@ exports.edit_get = asyncHandler(async(req,res,next)=>{
 })
 
 //handling editing request POST
+
 exports.edit_post =[ 
 //sanitizing user input    
     
@@ -37,31 +36,83 @@ exports.edit_post =[
     .escape()
     ,asyncHandler(async(req,res,next)=>{
         //initializing errors
-        const errors = validationResult(req)
 
+        const errors = validationResult(req)
         //checking that the collection exists
+
         const existingCollections =await collectionModel.find({})
         let collection=false
         for(let item of existingCollections){
             if(item.name === req.body.category){collection=item.name}
         }
         if(collection === false) {errors.errors.push({path:'collection',msg:'please choose one of the available collections'})}
-        console.log('collection: ',collection,req.body.category)
         //checking for errors
+
         if(!errors.isEmpty()){
             res.render('collectionEdit',{title:'edit collection',errors:errors.array(),collections:existingCollections})
         return
         }
         
         //updating collection
+
         else{
             //getting image
+
             const src = req.file.filename
-            console.log(src,)
             const updatedCollection = collectionModel.findByIdAndUpdate(req.params.id,{src:src},{new:true}).exec()
             res.redirect('/collection')
 
         }
 
-    res.send('not implemented yet')
+    
 })]
+
+//handling create item request GET
+exports.create_get =asyncHandler(async(req,res,next)=>{
+    const collections = await collectionModel.find({})
+
+    res.render('collectionCreate',{title:"collections create",collections:collections})
+})
+
+
+//handling create item request Post
+exports.create_post =[
+    //sanitizing user input    
+    
+    body('description','wrong description')
+    .trim()
+    .escape(),
+    body('name','name length must be between 3 and 100 character')
+    .trim()
+    .isLength({min:3})
+    .escape(),
+    asyncHandler(async(req,res,next)=>{
+//initializing errors
+console.log(req.body)
+const errors = validationResult(req)
+//checking that the collection exists
+
+const existingCollections =await collectionModel.find({})
+let collection=false
+for(let item of existingCollections){
+    if(item.name === req.body.name){collection=true}
+}
+if(collection === true) {errors.array().push({path:'collection',msg:'please write new collection name'})}
+//checking for errors
+
+if(!errors.isEmpty()){
+    res.render('collectionCreate',{title:'create collection',errors:errors})
+return
+}
+
+//updating collection
+
+else{
+    //creating collection
+    const src = req.file.filename
+    const updatedCollection =new collectionModel({name:req.body.name,description:req.body.description,src:src})
+     await updatedCollection.save()
+    res.redirect('/collection')
+}
+    })
+]
