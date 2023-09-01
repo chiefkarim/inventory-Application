@@ -299,6 +299,9 @@
 .justify-between {
     justify-content: space-between
 }
+.gap-10 {
+    gap: 2.5rem
+}
 .gap-2 {
     gap: 0.5rem
 }
@@ -313,12 +316,6 @@
 }
 .gap-8 {
     gap: 2rem
-}
-.gap-4 {
-    gap: 1rem
-}
-.gap-10 {
-    gap: 2.5rem
 }
 .self-end {
     align-self: flex-end
@@ -346,9 +343,6 @@
 }
 .bg-opacity-60 {
     --tw-bg-opacity: 0.6
-}
-.bg-\[url\(\'\.\.\/images\/background\/clark-street-mercantile-qnKhZJPKFD8-unsplash_d7dfcv_ar_1_1\2c c_fill\2c g_auto__c_scale\2c w_200\.jpg\'\)\] {
-    background-image: url('../images/background/clark-street-mercantile-qnKhZJPKFD8-unsplash_d7dfcv_ar_1_1,c_fill,g_auto__c_scale,w_200.jpg')
 }
 .bg-cover {
     background-size: cover
@@ -457,9 +451,6 @@
 }
 .leading-snug {
     line-height: 1.375
-}
-.tracking-wide {
-    letter-spacing: 0.025em
 }
 .tracking-wider {
     letter-spacing: 0.05em
