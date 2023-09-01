@@ -4,3 +4,4 @@ NodeJs for the back end.
 Express and Ejs for templating.
 Tailwind for styling.
 
+Live preview: https://inventory-karim.fly.dev/
