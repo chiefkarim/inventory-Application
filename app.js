@@ -24,13 +24,20 @@ async function main() {
 }
 
 //setting up protection
-app.use(helmet())
+app.use(helmet.contentSecurityPolicy({
+  directives:{
+    "script-src":["'self'","'unsafe-inline'"],
+    scriptSrcAttr: ["'self'", "'unsafe-inline'"],
+    "img-src":["'self'","cdn.shopify.com"]
+
+  }
+}))
 
 //setting up requests rate limit
 const RateLimit = require('express-rate-limit')
 const limiter = RateLimit({
   windowMs:1 * 60 * 1000,// 1MINUTE
-  max:20
+  max:50
 })
 app.use(limiter)
 
