@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-
+// setting up for production
+//process.env.NODE_ENV = 'production';
 /**
  * Module dependencies.
  */
