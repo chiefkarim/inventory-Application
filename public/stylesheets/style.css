@@ -117,6 +117,9 @@
 .left-0 {
     left: 0px
 }
+.right-0 {
+    right: 0px
+}
 .-z-20 {
     z-index: -20
 }
@@ -245,6 +248,10 @@
 .w-\[22vw\] {
     width: 22vw
 }
+.w-fit {
+    width: -moz-fit-content;
+    width: fit-content
+}
 .w-full {
     width: 100%
 }
@@ -372,6 +379,10 @@
 .px-28 {
     padding-left: 7rem;
     padding-right: 7rem
+}
+.px-3 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem
 }
 .px-6 {
     padding-left: 1.5rem;
