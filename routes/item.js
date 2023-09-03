@@ -17,6 +17,7 @@ const upload = multer({ storage: storage })
 
 router.get('/',item_controller.list)
 //creating  item
+
 router.get('/create',item_controller.edit_get)
 router.post('/create',upload.array('src',10),item_controller.edit_post)
 

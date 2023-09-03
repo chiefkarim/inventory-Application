@@ -7,8 +7,8 @@ const { body, validationResult } = require("express-validator");
 //     Get all collections
 exports.list = asyncHandler(async (req, res, next)=>{
     const collections = await collectionModel.find({})
-
-    res.render('collectionList',{title:"collections",collections:collections})
+        res.render('collectionList',{title:"collections",collections:collections})
+   
 })
 
 // get all the items in that collection
@@ -22,12 +22,16 @@ exports.list_items = asyncHandler(async(req,res,next)=>{
 
 //handling editing request GET
 exports.edit_get = asyncHandler(async(req,res,next)=>{
-    const collections =await collectionModel.find({})
-    res.render('collectionEdit',{title:'edit collection',collections:collections})
+    if(typeof res.locals.currentUser == 'object' && res.locals.currentUser.username === 'admin'){
+        const collections =await collectionModel.find({})
+        res.render('collectionEdit',{title:'edit collection',collections:collections})
+
+    }else{
+        res.redirect('/log-in',)
+    }
 })
 
 //handling editing request POST
-
 exports.edit_post =[ 
 //sanitizing user input    
     
@@ -36,7 +40,11 @@ exports.edit_post =[
     .escape()
     ,asyncHandler(async(req,res,next)=>{
         //initializing errors
+        if(typeof res.locals.currentUser == 'object' && res.locals.currentUser.username === 'admin'){
 
+        }else{
+            res.redirect('/log-in',)
+        
         const errors = validationResult(req)
         //checking that the collection exists
 
@@ -65,13 +73,18 @@ exports.edit_post =[
         }
 
     
-})]
+}})]
 
 //handling create item request GET
 exports.create_get =asyncHandler(async(req,res,next)=>{
-    const collections = await collectionModel.find({})
+    if(typeof res.locals.currentUser == 'object' && res.locals.currentUser.username === 'admin'){
+        const collections = await collectionModel.find({})
+    
+        res.render('collectionCreate',{title:"collections create",collections:collections})
 
-    res.render('collectionCreate',{title:"collections create",collections:collections})
+    }else{
+        res.redirect('/log-in',)
+    }
 })
 
 
@@ -87,8 +100,12 @@ exports.create_post =[
     .isLength({min:3})
     .escape(),
     asyncHandler(async(req,res,next)=>{
+        if(typeof res.locals.currentUser.currentUser.currentUser.currentUser == 'object' && res.locals.currentUser.currentUser.currentUser.currentUser.username === 'admin'){
+
+        }else{
+            res.redirect('/log-in',)
+        
 //initializing errors
-console.log(req.body)
 const errors = validationResult(req)
 //checking that the collection exists
 
@@ -114,11 +131,15 @@ else{
      await updatedCollection.save()
     res.redirect('/collection')
 }
-    })
+    }})
 ]
 
 //handling deleting a collection
 exports.delete = asyncHandler(async(req,res,next)=>{
-    await collectionModel.findByIdAndDelete(req.params.id)
-    res.redirect('/collection')
+    if(typeof res.locals.currentUser.currentUser.currentUser == 'object' && res.locals.currentUser.currentUser.currentUser.username === 'admin'){
+        await collectionModel.findByIdAndDelete(req.params.id)
+        res.redirect('/collection')
+    }else{
+        res.redirect('/log-in',)
+    }
 })
