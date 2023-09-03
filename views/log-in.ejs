@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title> <%= title %></title>  
+
+  </head>
+
+  <body class="m-0 min-h-screen flex flex-col  justify-between tracking-widest bg-[#D7CEB2] font-thin font-helvetica-neue ">
+    <%- include('nav') -%>
+
+<main class="px-28 my-10 ">
+    <section >
+      
+        <form class="grid gap-10 " action="" method="post" >
+          <label>
+            Username:
+            <input type="text" name="username">
+          </label>
+          <label>
+            Password:
+            <input type="password" name="password">
+          </label>
+
+    <% if (typeof errors == 'object' && errors) { %>
+      <% errors.forEach(function(error){ %>
+        <span>
+
+      <%= error.msg %>
+      </span>
+
+      <% }) %>
+      <% } %>
+      
+  <button type="submit" class="w-fit">Log in</button>
+</form>
+
+    </section>
+</main>
+        <%- include('footer') -%>
+
+  </body>
+</html>

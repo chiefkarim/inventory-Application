@@ -6,7 +6,7 @@ exports.index = asyncHandler(async(req,res,next)=>{
 
     collectionModel.find({})
 
-    res.render('index',{title:'E-commerce'})
+    res.render('index',{title:'E-commerce', user: req.user })
 
 
 })

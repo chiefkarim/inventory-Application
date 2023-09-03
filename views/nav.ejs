@@ -6,6 +6,15 @@
 <a role="button" href="/item/create/" class=" px-6 py-6  no-underline text-[#F5F5F5]">create item</a>        
 <a role="button" href="/collection/create/" class=" px-6 py-6  no-underline text-[#F5F5F5]">create collection</a>        
 
-</div >
-    <a style='display:none' role="button" href="/About" class="text-5xl  px-6 py-6  no-underline text-[#F5F5F5]  ">About us</a>        
+</div  >
+<div class="py-6">
+    <% if( typeof locals.currentUser == 'object' && locals.currentUser){ %>
+    <h1 class="inline-block m-0 text-[#F5F5F5] "><%= locals.currentUser.username %></h1>
+    <a  role="button" href="/log-out" class="text-5xl px-6    no-underline text-[#F5F5F5]  ">Log out</a>
+
+    <% } else { %>
+    <a  role="button" href="/sign-up" class="text-5xl px-6    no-underline text-[#F5F5F5]  ">Sign up</a>
+    <a  role="button" href="/log-in" class="text-5xl     no-underline text-[#F5F5F5]  ">Log in</a>    
+    <% } %>    
+</div>
 </nav>
