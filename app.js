@@ -85,7 +85,7 @@ passport.use(new LocalStrategy(async(username, password, done)=>{
     const match =await bcrypt.compare(password,user.password)
     if(!user){
       return done(null, false,{ message:'user does not exist. please check your username, please try again.'})
-    }
+    }  
     if(!match){
       return done(null, false,{ message:'wrong password. please try again.'})
     }
