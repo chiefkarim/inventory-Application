@@ -9,14 +9,22 @@ exports.logIn_get = asyncHandler(async(req,res,next)=>{
 
 //handling log in request POST
 exports.logIn_post = [
-    body('username','please enter a username between 3 and 15 characters')
+    body('username','please enter a username')
     .trim()
-    .isLength({min:3, max: 15})
+    .isLength({min:1})
     .escape(),
-    body('password','please enter a password of 5 and 15 characters')
+    body('password','please enter a password')
     .trim()
-    .isLength({min:5,max:15})
-    .escape(),
+    .isLength({min:1})
+    .escape(),asyncHandler(async(req,res,next)=>{
+        const errors=validationResult(req)
+        if(!errors.isEmpty()){
+            console.error(`Validation error ${JSON.stringify(errors)}`)
+            res.render('log-in',{title:'Log in',errors:errors.array()})
+        }else{
+            next()
+        }
+    }),
     passport.authenticate("local", {
         successRedirect: "/",
         failureRedirect: "/log-in"

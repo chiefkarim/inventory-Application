@@ -17,6 +17,7 @@ mongoose.set("strictQuery", false);
 const mongoDB = process.env.DATABASE_URI;
 main().catch((err) => console.log(err));
 async function main() {
+  
   await mongoose.connect(mongoDB);
 }
 //
@@ -81,7 +82,7 @@ passport.use(new LocalStrategy(async(username, password, done)=>{
   try{
     const bcrypt = require('bcryptjs')
     const user = await userModel.findOne({username:username})
-    const match = bcrypt.compare(password,user.password)
+    const match =await bcrypt.compare(password,user.password)
     if(!user){
       return done(null, false,{ message:'user does not exist. please check your username, please try again.'})
     }

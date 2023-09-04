@@ -18,7 +18,13 @@ exports.signUp_post = [
     .escape()
     ,asyncHandler(async(req,res,next)=>{
     
-    const errors = validationResult(req) 
+        const errors = validationResult(req) 
+        //checking if user already exists
+        const userExist = await userModel.findOne({username:req.body.username})
+        if(userExist){
+            console.log('already exists')
+            errors.errors.push({path:'username',msg:'username already exists'})
+        }
     if(!errors.isEmpty()){
         res.render('sign-up',{errors:errors.array(),title:"sing up"})
         return
