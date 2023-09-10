@@ -79,12 +79,12 @@ passport.use(new LocalStrategy(async(username, password, done)=>{
   try{
     const bcrypt = require('bcryptjs')
     const user = await userModel.findOne({username:username})
-    const match =await bcrypt.compare(password,user.password)
     if(!user){
-      return done(null, false,{ message:'user does not exist. please check your username, please try again.'})
+      return done(null, false,{ msg:'user does not exist. please check your username and try again.'})
     }  
+    const match =await bcrypt.compare(password,user.password)
     if(!match){
-      return done(null, false,{ message:'wrong password. please try again.'})
+      return done(null, false,{ msg:'wrong password. please try again.'})
     }
     return done(null,user)
   }catch(err){

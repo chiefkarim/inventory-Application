@@ -22,11 +22,13 @@ exports.logIn_post = [
             console.error(`Validation error ${JSON.stringify(errors)}`)
             res.render('log-in',{title:'Log in',errors:errors.array()})
         }else{
-            next()
+           
+            passport.authenticate('local', function(err, user, info, status) {
+                if (err) { return next(err) }
+                if (!user) { return   res.render('log-in',{title:'Log in',errors:[info]})  }
+                jwt.sign(req.body.username, '')
+                res.redirect('/');
+            })(req, res, next)
         }
     }),
-    passport.authenticate("local", {
-        successRedirect: "/",
-        failureRedirect: "/log-in"
-      }),
 ]
