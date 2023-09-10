@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const {body, validationResult} = require('express-validator')
 const passport = require('passport')
-
+const jwt = require('jsonwebtoken')
 //handling log in request GET
 exports.logIn_get = asyncHandler(async(req,res,next)=>{
     res.render("log-in",{title:'Log in'})
@@ -28,5 +28,5 @@ exports.logIn_post = [
     passport.authenticate("local", {
         successRedirect: "/",
         failureRedirect: "/log-in"
-      })
+      }),
 ]

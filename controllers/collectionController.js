@@ -32,24 +32,16 @@ exports.list_items_api = asyncHandler(async(req,res,next)=>{
 
 //handling editing request GET
 exports.edit_get = asyncHandler(async(req,res,next)=>{
-    if(typeof res.locals.currentUser == 'object' && res.locals.currentUser.username === 'admin'){
         const collections =await collectionModel.find({})
         res.render('collectionEdit',{title:'edit collection',collections:collections})
 
-    }else{
-        res.redirect('/log-in',)
-    }
 })
 
 //API handling editing request GET
 exports.edit_get_api = asyncHandler(async(req,res,next)=>{
-    if(typeof res.locals.currentUser == 'object' && res.locals.currentUser.username === 'admin'){
         const collections =await collectionModel.find({})
         res.send({title:'edit collection',collections:collections})
 
-    }else{
-        res.res({authorization:false})
-    }
 })
 
 //handling editing request POST
@@ -61,7 +53,6 @@ exports.edit_post =[
         .escape()
         ,asyncHandler(async(req,res,next)=>{
             //initializing errors
-            if(typeof res.locals.currentUser == 'object' && res.locals.currentUser.username === 'admin'){
     
                 const errors = validationResult(req)
                 //checking that the collection exists
@@ -90,11 +81,9 @@ exports.edit_post =[
         
                 }
         
-            }else{
-                res.redirect('/log-in',)
             
         
-    }})]
+    })]
 
 //handling editing request POST
 exports.edit_post_api =[ 
@@ -105,7 +94,6 @@ exports.edit_post_api =[
         .escape()
         ,asyncHandler(async(req,res,next)=>{
             //initializing errors
-            if(typeof res.locals.currentUser == 'object' && res.locals.currentUser.username === 'admin'){
     
                 const errors = validationResult(req)
                 //checking that the collection exists
@@ -134,34 +122,26 @@ exports.edit_post_api =[
         
                 }
         
-            }else{
-                res.send({authorization:false})
             
         
-    }})]
+    })]
 
 //handling create item request GET
 exports.create_get =asyncHandler(async(req,res,next)=>{
-    if(typeof res.locals.currentUser == 'object' && res.locals.currentUser.username === 'admin'){
         const collections = await collectionModel.find({})
     
         res.render('collectionCreate',{title:"collections create",collections:collections})
 
-    }else{
-        res.redirect('/log-in',)
-    }
+    
 })
 
 //handling create item request GET
 exports.create_get_api =asyncHandler(async(req,res,next)=>{
-    if(typeof res.locals.currentUser == 'object' && res.locals.currentUser.username === 'admin'){
         const collections = await collectionModel.find({})
     
         res.send({title:"collections create",collections:collections})
 
-    }else{
-        res.send({authorization:false})
-    }
+    
 })
 
 //handling create item request Post
@@ -176,7 +156,6 @@ exports.create_post =[
     .isLength({min:3})
     .escape(),
     asyncHandler(async(req,res,next)=>{
-        if(typeof res.locals.currentUser == 'object' && res.locals.currentUser.username === 'admin'){
 
             //initializing errors
             const errors = validationResult(req)
@@ -204,10 +183,8 @@ exports.create_post =[
                  await updatedCollection.save()
                 res.redirect('/collection')
             }
-        }else{
-            res.redirect('/log-in',)
         
-    }})
+    })
 ]
 
 //API handling create item request Post
@@ -222,7 +199,6 @@ exports.create_post_api =[
     .isLength({min:3})
     .escape(),
     asyncHandler(async(req,res,next)=>{
-        if(typeof res.locals.currentUser == 'object' && res.locals.currentUser.username === 'admin'){
 
             //initializing errors
             const errors = validationResult(req)
@@ -250,28 +226,20 @@ exports.create_post_api =[
                  await updatedCollection.save()
                 res.redirect('/collection')
             }
-        }else{
-            res.redirect('/log-in',)
         
-    }})
+    })
 ]
 
 //handling deleting a collection
 exports.delete = asyncHandler(async(req,res,next)=>{
-    if(typeof res.locals.currentUser == 'object' && res.locals.currentUser.username === 'admin'){
         await collectionModel.findByIdAndDelete(req.params.id)
         res.redirect('/collection')
-    }else{
-        res.redirect('/log-in',)
-    }
+    
 })
 
 //API handling deleting a collection
 exports.delete_api = asyncHandler(async(req,res,next)=>{
-    if(typeof res.locals.currentUser == 'object' && res.locals.currentUser.username === 'admin'){
         await collectionModel.findByIdAndDelete(req.params.id)
         res.send({authorization:true})
-    }else{
-        res.send({authorization:false})
-    }
+    
 })

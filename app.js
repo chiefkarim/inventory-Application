@@ -58,10 +58,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(function(req,res,next){
-  res.locals.currentUser = req.user
-  next()
-})
+
 
 //setting up authentication
 const LocalStrategy = require('passport-local')

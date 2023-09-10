@@ -20,7 +20,6 @@ exports.detail_api = asyncHandler(async(req,res,next)=>{
 
 // display edit item page on Get
 exports.edit_get = asyncHandler(async(req,res,next)=>{
-    if(typeof res.locals.currentUser == 'object' && res.locals.currentUser.username === 'admin'){
         
         const collections = await collectionModel.find({})
         if(req.params.id){
@@ -28,14 +27,11 @@ exports.edit_get = asyncHandler(async(req,res,next)=>{
             res.render('editItem',{title:'item',item:item,collections:collections,})
         }
         res.render('editItem',{title:'item',collections:collections,})
-    }else{
-        res.redirect('/log-in',)
-    }
+    
 
 })
 //API display edit item page on Get
 exports.edit_get_api = asyncHandler(async(req,res,next)=>{
-    if(typeof res.locals.currentUser == 'object' && res.locals.currentUser.username === 'admin'){
         
         const collections = await collectionModel.find({})
         if(req.params.id){
@@ -44,9 +40,7 @@ exports.edit_get_api = asyncHandler(async(req,res,next)=>{
         }
         res.send({title:'item',collections:collections,})
 
-    }else{
-        res.send({authorization:false})
-    }
+    
 
 })
 
@@ -64,7 +58,6 @@ exports.edit_post = [
     .escape()
     ,asyncHandler(async(req,res,next)=>{
         // extracting errors 
-        if(typeof res.locals.currentUser == 'object' && res.locals.currentUser.username === 'admin'){
 
             const errors = validationResult(req)
             const collections = await collectionModel.find()
@@ -139,9 +132,7 @@ exports.edit_post = [
                   res.redirect(updatedItem.url)
                 }
             }
-        }else{
-            res.redirect('/log-in',)
-        }
+        
 })]
 
 //API handel edited item on Post
@@ -158,7 +149,6 @@ exports.edit_post_api = [
     .escape()
     ,asyncHandler(async(req,res,next)=>{
         // extracting errors 
-        if(typeof res.locals.currentUser == 'object' && res.locals.currentUser.username === 'admin'){
 
             const errors = validationResult(req)
             const collections = await collectionModel.find()
@@ -233,29 +223,21 @@ exports.edit_post_api = [
 
                 }
             }
-        }else{
-            res.send({authorization:false})
-        }
+        
 })]
 
 //handling deleting a item
 exports.delete = asyncHandler(async(req,res,next)=>{
-    if(typeof res.locals.currentUser == 'object' && res.locals.currentUser.username === 'admin'){
         await itemModel.findByIdAndDelete(req.params.id)
         res.redirect('/collection')
 
-    }else{
-        res.redirect('/log-in',)
-    }
+    
 })
 
 //API handling deleting a item
 exports.delete_api = asyncHandler(async(req,res,next)=>{
-    if(typeof res.locals.currentUser == 'object' && res.locals.currentUser.username === 'admin'){
         await itemModel.findByIdAndDelete(req.params.id)
         res.send({authorization:true})
 
-    }else{
-        res.send({authorization:false})
-    }
+    
 })
