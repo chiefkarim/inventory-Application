@@ -16,6 +16,6 @@ module.exports=function authenticate(req, res, next) {
       next();
     });
   } else {
-    res.sendStatus(400);
+    res.sendStatus(403);
   }
 }
