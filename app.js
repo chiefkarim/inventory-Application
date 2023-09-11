@@ -9,7 +9,10 @@ const app = express();
 const debug = require("debug")("app");
 const compression = require('compression')
 const helmet = require('helmet')
+const cors = require('cors')
 
+//allowing access from anaywhere
+app.options('*', cors()) 
 
 //connecting to database
 mongoose.set("strictQuery", false);

@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const collection_controller = require('../controllers/collectionController')
 const multer  = require('multer')
-const cors = require('cors')
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "./uploads");
@@ -20,7 +19,7 @@ const authenticate = require('../helpers/auth')
 router.get("/", collection_controller.list);
 
 // API get collections 
-router.get("/api",cors(),collection_controller.api_list)
+router.get("/api",collection_controller.api_list)
 
 //handling edit collection request GET 
 router.get("/:id/edit/",authenticate,collection_controller.edit_get)
