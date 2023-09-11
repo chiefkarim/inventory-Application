@@ -12,29 +12,30 @@ const storage = multer.diskStorage({
        })
       
 const upload = multer({ storage: storage })
+const authenticate = require('../helpers/auth')
 
 
 //creating  item
-router.get('/create',item_controller.edit_get)
-router.post('/create',upload.array('src',10),item_controller.edit_post)
+router.get('/create',authenticate,item_controller.edit_get)
+router.post('/create',authenticate,upload.array('src',10),item_controller.edit_post)
 
 //creating  item
-router.get('/create/api',item_controller.edit_get_api)
-router.post('/create/api',upload.array('src',10),item_controller.edit_post_api)
+router.get('/create/api',authenticate,item_controller.edit_get_api)
+router.post('/create/api',authenticate,upload.array('src',10),item_controller.edit_post_api)
 
 //editing item
-router.get('/:id/edit',item_controller.edit_get)
-router.post('/:id/edit',upload.array('src',10),item_controller.edit_post)
+router.get('/:id/edit',authenticate,item_controller.edit_get)
+router.post('/:id/edit',authenticate,upload.array('src',10),item_controller.edit_post)
 
 //editing item
-router.get('/:id/edit/api',item_controller.edit_get_api)
-router.post('/:id/edit/api',upload.array('src',10),item_controller.edit_post_api)
+router.get('/:id/edit/api',authenticate,item_controller.edit_get_api)
+router.post('/:id/edit/api',authenticate,upload.array('src',10),item_controller.edit_post_api)
 
 //handling deleting POST
-router.post('/:id/delete',item_controller.delete)
+router.post('/:id/delete',authenticate,item_controller.delete)
 
 //handling deleting POST
-router.post('/:id/delete/api',item_controller.delete_api)
+router.post('/:id/delete/api',authenticate,item_controller.delete_api)
 // displaying item details GET
 router.get('/:id',item_controller.detail)
 

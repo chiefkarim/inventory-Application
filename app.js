@@ -99,6 +99,8 @@ const collectionRouter = require("./routes/collection");
 const itemRouter = require("./routes/item");
 const signUpRouter = require("./routes/sign-up")
 const logInRouter = require('./routes/log-in')
+
+
 app.use("/",express.static(path.join(__dirname, "uploads")),indexRouter);
 app.use("/collection", express.static(path.join(__dirname, "uploads")),collectionRouter);
 app.use("/item",express.static(path.join(__dirname, "uploads")),itemRouter);

@@ -129,7 +129,7 @@ exports.edit_post_api =[
 //handling create item request GET
 exports.create_get =asyncHandler(async(req,res,next)=>{
         const collections = await collectionModel.find({})
-    
+
         res.render('collectionCreate',{title:"collections create",collections:collections})
 
     
@@ -138,7 +138,6 @@ exports.create_get =asyncHandler(async(req,res,next)=>{
 //handling create item request GET
 exports.create_get_api =asyncHandler(async(req,res,next)=>{
         const collections = await collectionModel.find({})
-    
         res.send({title:"collections create",collections:collections})
 
     

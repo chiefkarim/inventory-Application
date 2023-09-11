@@ -3,10 +3,10 @@ const fs = require("fs");
 const csvParser = require("csv-parser");
 const result = [];
 const nameIndex = {}; // A mapping to track indexes of names
-const collection = require("./models/collection");
+const collection = require("../models/collection");
 const express = require("express");
 const { default: mongoose } = require("mongoose");
-const Item = require("./models/item");
+const Item = require("../models/item");
 const { getEnabledCategories } = require("trace_events");
 require("dotenv").config();
 //connecting to database

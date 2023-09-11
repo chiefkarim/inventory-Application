@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const {body , validationResult } = require('express-validator')
 const userModel = require('../models/user') 
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 exports.signUp_get = asyncHandler(async(req,res,next)=>{
     res.render('sign-up',{title:'sign up'})
@@ -38,8 +39,8 @@ exports.signUp_post = [
                    password:hashedPassword
                 })
                 result = await user.save()
-                console.log(result)
-                res.redirect('/')
+                const accessToken = jwt.sign({username:req.body.username}, process.env.ACCESS_TOKEN_SECRET)
+                res.send({accessToken:accessToken});
             }catch(err){
                 return next(err)
             }

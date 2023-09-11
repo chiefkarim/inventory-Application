@@ -26,8 +26,8 @@ exports.logIn_post = [
             passport.authenticate('local', function(err, user, info, status) {
                 if (err) { return next(err) }
                 if (!user) { return   res.render('log-in',{title:'Log in',errors:[info]})  }
-                jwt.sign(req.body.username, '')
-                res.redirect('/');
+               const accessToken = jwt.sign({username:req.body.username}, process.env.ACCESS_TOKEN_SECRET)
+                res.send({accessToken:accessToken});
             })(req, res, next)
         }
     }),
