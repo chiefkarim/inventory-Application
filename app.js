@@ -13,7 +13,7 @@ const cors = require('cors')
 
 //allowing access from anaywhere
 app.options('*', cors()) 
-
+app.use(cors())
 //connecting to database
 mongoose.set("strictQuery", false);
 
