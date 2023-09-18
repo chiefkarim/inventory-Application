@@ -263,11 +263,11 @@ exports.create_post_api = [
 
             } else{
     
-                    const itemExists = await itemModel.find({name: req.body.name}).exec()
+                    const itemExists = await itemModel.findOne({name: req.body.name}).exec()
                     console.log(itemExists)
                     // setting collection
-                    if(itemExists.isEmpty()){
-
+                    if(!itemExists){
+console.log('aded to database')
                         let categoryId=await collectionModel.find({name:req.body.category},{_id:1})
                         categoryId=categoryId[0]['_id']
                         const src = []
