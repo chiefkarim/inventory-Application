@@ -35,11 +35,7 @@ router.post('/:id/delete',authenticate,collection_controller.delete)
 //handling deleting collection POST
 router.post('/:id/delete/api',authenticate,collection_controller.delete_api)
 
-//handling create collection request GET
-router.get("/create",authenticate,collection_controller.create_get)
 
-//handling create collection request GET
-router.get("/create/api",authenticate,collection_controller.create_get_api)
 
 //handling create collection request POST
 router.post("/create",authenticate,upload.single('src'),collection_controller.create_post)

@@ -267,11 +267,14 @@ exports.create_post_api = [
                     console.log(itemExists)
                     // setting collection
                     if(!itemExists){
-console.log('aded to database')
                         let categoryId=await collectionModel.find({name:req.body.category},{_id:1})
                         categoryId=categoryId[0]['_id']
                         const src = []
                         //setting images
+                        if(req.files.length<3){
+                            errors.errors.push({msg:'please upload at least 3 photos',path:'images'})
+                            return res.status(400).send({title:'create item',errors:errors.array()})
+                        }
                         for (let file of req.files){
                         src.push(file.filename)
                         }

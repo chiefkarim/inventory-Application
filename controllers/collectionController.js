@@ -208,22 +208,31 @@ exports.create_post_api =[
             for(let item of existingCollections){
                 if(item.name === req.body.name){collection=true}
             }
-            if(collection === true) {errors.array().push({path:'collection',msg:'please write new collection name'})}
+            if(collection === true) {errors.push({path:'collection',msg:'please write new collection name'})}
             //checking for errors
             
             if(!errors.isEmpty()){
-                res.render('collectionCreate',{title:'create collection',errors:errors})
+                res.status(400).send({title:'create collection',errors:errors.array()})
             return
             }
             
             //updating collection
             
             else{
+                console.log(req.file)
                 //creating collection
+                if(typeof req.file === 'undefined' || typeof req.file == 'array' ){
+                    console.log('file  not found')
+                    errors.errors.push({path:'collection',msg:'please upload a collection photo'})
+                    return res.status(400).send({title:'create collection',errors:errors.array()})
+  
+                }
+                console.log('got here')
                 const src = req.file.filename
                 const updatedCollection =new collectionModel({name:req.body.name,description:req.body.description,src:src})
                  await updatedCollection.save()
-                res.redirect('/collection')
+
+                res.send({url:updatedCollection.url})
             }
         
     })
