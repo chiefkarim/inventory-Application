@@ -27,7 +27,8 @@ exports.list_items = asyncHandler(async(req,res,next)=>{
 // API get all the items in that collection
 exports.list_items_api = asyncHandler(async(req,res,next)=>{
     const items = await itemModel.find({category:req.params.id}).populate('category').exec()
-    res.send({title:req.params.id,items:items})
+    const collectionName = await collectionModel.findOne({_id:req.params.id}).exec()
+    res.send({title:collectionName.name,items:items})
 })
 
 //handling editing request GET
@@ -59,9 +60,12 @@ exports.edit_post =[
         
                 const existingCollections =await collectionModel.find({})
                 let collection=false
-                for(let item of existingCollections){
-                    if(item.name === req.body.category){collection=item.name}
+            for(let i=0; i<collections.length;i++){
+    
+                if (collections[i].name === req.body.name){
+                    collection=true
                 }
+            }
                 if(collection === false) {errors.errors.push({path:'collection',msg:'please choose one of the available collections'})}
                 //checking for errors
         
@@ -99,26 +103,36 @@ exports.edit_post_api =[
                 //checking that the collection exists
         
                 const existingCollections =await collectionModel.find({})
-                let collection=false
-                for(let item of existingCollections){
-                    if(item.name === req.body.category){collection=item.name}
-                }
-                if(collection === false) {errors.errors.push({path:'collection',msg:'please choose one of the available collections'})}
-                //checking for errors
+                let collection=true
+                
+                for(let i=0; i<existingCollections.length;i++){
         
+                    if (existingCollections[i].name === req.body.name){
+                        collection=false
+                    }
+                }
+                console.log(collection)
+                if(collection === false) {errors.errors.push({path:'collection',msg:'please choose new collection name'})}
+                //checking for errors
                 if(!errors.isEmpty()){
-                    res.send({title:'edit collection',errors:errors.array(),collections:existingCollections})
-                return
+                   return  res.status(400).send({title:'edit collection',errors:errors.array()})
+                
                 }
                 
+                
                 //updating collection
-        
+                
                 else{
                     //getting image
-        
-                    const src = req.file.filename
-                    const updatedCollection = collectionModel.findByIdAndUpdate(req.params.id,{src:src},{new:true}).exec()
-                    res.send({authorization:true})
+                    if(!req.file){
+            
+                        const updatedCollection =await collectionModel.findByIdAndUpdate(req.params.id,{name:req.body.name,description:req.body.description},{new:true}).exec()
+                       return res.send({url:updatedCollection.url})
+
+                    }
+                    const updatedCollection =await collectionModel.findByIdAndUpdate(req.params.id,{name:req.body.name,description:req.body.description,src:req.file.filename},{new:true}).exec()
+                    console.log(updatedCollection)
+                    res.send({url:updatedCollection.url})
         
                 }
         

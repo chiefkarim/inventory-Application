@@ -21,11 +21,11 @@ router.get("/", collection_controller.list);
 // API get collections 
 router.get("/api",collection_controller.api_list)
 
-//handling edit collection request GET 
+//handling edit collection request 
 router.get("/:id/edit/",authenticate,collection_controller.edit_get)
 router.post("/:id/edit/",authenticate,upload.single('src'),collection_controller.edit_post)
 
-//APIhandling edit collection request GET 
+//APIhandling edit collection request API 
 router.get("/:id/edit/api",authenticate,collection_controller.edit_get_api)
 router.post("/:id/edit/api",authenticate,upload.single('src'),collection_controller.edit_post_api) 
 
