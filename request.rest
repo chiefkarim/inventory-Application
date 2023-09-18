@@ -1,2 +1,7 @@
-GET http://localhost:3000/item/edit
+POST http://localhost:3000/item/create/api
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNjk0NDEzMzU0fQ.-bg_1nIVgNkEmWLDEivnXna4Lx0aT4qiOVSTSXCM_Gg
+content-type: application/json
+
+{
+    "name":"karim"
+}

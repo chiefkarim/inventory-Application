@@ -21,7 +21,7 @@ router.post('/create',authenticate,upload.array('src',10),item_controller.edit_p
 
 //creating  item
 router.get('/create/api',authenticate,item_controller.edit_get_api)
-router.post('/create/api',authenticate,upload.array('src',10),item_controller.edit_post_api)
+router.post('/create/api',authenticate,upload.array('src',10),item_controller.create_post_api)
 
 //editing item
 router.get('/:id/edit',authenticate,item_controller.edit_get)

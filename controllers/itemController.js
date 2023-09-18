@@ -167,16 +167,15 @@ exports.edit_post_api = [
                 }
             }
             if(category === false){
-                errors.push({msg:'please chose one of the available collections',path:'category'})
+                errors.errors.push({msg:'please chose one of the available collections',path:'category'})
             }
     
             if(!errors.isEmpty()){
-                if(req.params.id){
     
               console.log(errors)
                 res.send({title:'edit item',errors:errors.array(),item:item,collections:collections})
                 return
-                }
+                
 
             } else{
     
@@ -197,7 +196,7 @@ exports.edit_post_api = [
                             src:src});
                              await item.save()
     
-                            res.redirect(item.url)
+                            res.send({url:item.url})
                 }
                 const itemExists = await itemModel.find({name: req.body.name}).exec()
     
@@ -219,10 +218,78 @@ exports.edit_post_api = [
             src:src}, 
       { new: true } // This option returns the modified document
     ).exec();
-    res.send({authorization:true})
-
+    res.send({url:item.url})
                 }
             }
+        
+})]
+
+exports.create_post_api = [ 
+    body('name','Item name must contain at least 3 characters and 100 at max')
+    .trim()
+    .isLength({min:1})
+    .escape(),
+    body('price','price must range from 1 and up')
+    .trim()
+    .escape(),
+    body('stock','quantity must range from 0 and up')
+    .trim()
+    .escape()
+    ,asyncHandler(async(req,res,next)=>{
+        // extracting errors 
+
+            const errors = validationResult(req)
+            const collections = await collectionModel.find()
+            
+    
+            //verifying that the category exists
+            let category=false
+            for(let i=0; i<collections.length;i++){
+    
+                if (collections[i].name === req.body.category){
+                    category=true
+                }
+            }
+            if(category === false){
+                errors.errors.push({msg:'please chose one of the available collections',path:'category'})
+            }
+    
+            if(!errors.isEmpty()){
+    
+              console.log(errors)
+                res.send({title:'create item',errors:errors.array(),collections:collections})
+                return
+                
+
+            } else{
+    
+                    const itemExists = await itemModel.find({name: req.body.name}).exec()
+                    console.log(itemExists)
+                    // setting collection
+                    if(itemExists.isEmpty()){
+
+                        let categoryId=await collectionModel.find({name:req.body.category},{_id:1})
+                        categoryId=categoryId[0]['_id']
+                        const src = []
+                        //setting images
+                        for (let file of req.files){
+                        src.push(file.filename)
+                        }
+                        const item = new itemModel({ name: req.body.name,
+                            price:req.body.price,
+                                stock : req.body.stock,
+                                description:req.body.description,
+                                category:categoryId,
+                                src:src});
+                                 await item.save()
+        
+                                res.send({url:item.url})
+                    }else{
+                        
+                        res.send({title:'create item',errors:[{msg:'item already exists'}],collections:collections})
+                    }
+                }
+          
         
 })]
 
@@ -230,14 +297,10 @@ exports.edit_post_api = [
 exports.delete = asyncHandler(async(req,res,next)=>{
         await itemModel.findByIdAndDelete(req.params.id)
         res.redirect('/collection')
-
-    
 })
 
 //API handling deleting a item
 exports.delete_api = asyncHandler(async(req,res,next)=>{
         await itemModel.findByIdAndDelete(req.params.id)
         res.send({authorization:true})
-
-    
 })
