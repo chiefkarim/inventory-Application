@@ -8,7 +8,7 @@ cloudinary.config({
 return cloudinary.v2.uploader
   .upload(image)
   .then((result) => {
-    console.log(result)
+   console.log('upload ',result.secure_url)
   return result.secure_url
 }).catch(err=>console.log(err));
 }
