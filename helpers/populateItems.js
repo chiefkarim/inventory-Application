@@ -12,10 +12,12 @@ require("dotenv").config();
 //connecting to database
 const mongoDB = process.env.DATABASE_URI;
 //getting categories
+const filePath = './helpers/data.csv';
+
 mongoose
   .connect(mongoDB)
   .then(() => {
-    const categories = {};
+   const categories = {};
     collection
       .find({}, { _id: 1, name: 1 })
       .then((collection) => {
@@ -24,8 +26,8 @@ mongoose
         }
       })
       .then(() => {
-        fs.createReadStream("./data.csv")
-          .pipe(csvParser())
+        fs.createReadStream(filePath)
+          .pipe(csvParser({ encoding: 'utf-8' }))
           .on("data", (data) => {
             data.stock = Math.round(Math.random() * 100);
             data.category = categories[data.collection];
