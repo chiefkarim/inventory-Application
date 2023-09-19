@@ -3,6 +3,7 @@ const itemModel = require("../models/item");
 const collectionModel = require('../models/collection')
 const { body, validationResult } = require("express-validator");
 const path = require("path");
+const upload = require('../helpers/imageToWebdb')
 
 
 
@@ -97,7 +98,7 @@ exports.edit_post = [
                     const src = []
                     //setting images
                     for (let file of req.files){
-                    src.push(file.filename)
+                    src.push(await upload(file.path))
                     }
                     const item = new itemModel({ name: req.body.name,
                         price:req.body.price,
@@ -117,7 +118,7 @@ exports.edit_post = [
                     
     const src = []
     for (let file of req.files){
-    src.push(file.filename)
+    src.push(await upload(file.path))
     }
     const updatedItem = await itemModel.findByIdAndUpdate(
       req.params.id,
@@ -186,7 +187,9 @@ exports.edit_post_api = [
                     const src = []
                     //setting images
                     for (let file of req.files){
-                    src.push(file.filename)
+                        
+
+                    src.push(await upload(file.path))
                     }
                     const item = new itemModel({ name: req.body.name,
                         price:req.body.price,
@@ -205,7 +208,7 @@ exports.edit_post_api = [
                     
     const src = []
     for (let file of req.files){
-    src.push(file.filename)
+    src.push(await upload(file.path))
     }
     const updatedItem = await itemModel.findByIdAndUpdate(
       req.params.id,
@@ -275,7 +278,7 @@ exports.create_post_api = [
                             return res.status(400).send({title:'create item',errors:errors.array()})
                         }
                         for (let file of req.files){
-                        src.push(file.filename)
+                        src.push(await upload(file.path))
                         }
                         const item = new itemModel({ name: req.body.name,
                             price:req.body.price,

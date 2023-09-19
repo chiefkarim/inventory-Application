@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler')
 const collectionModel = require('../models/collection')
 const itemModel = require('../models/item')
 const { body, validationResult } = require("express-validator");
-
+const upload = require('../helpers/imageToWebdb')
 
 //     Get all collections
 exports.list = asyncHandler(async (req, res, next)=>{
@@ -79,7 +79,7 @@ exports.edit_post =[
                 else{
                     //getting image
         
-                    const src = req.file.filename
+                    const src =await  upload(req.file.path)
                     const updatedCollection = collectionModel.findByIdAndUpdate(req.params.id,{src:src},{new:true}).exec()
                     res.redirect('/collection')
         
@@ -130,9 +130,11 @@ exports.edit_post_api =[
                        return res.send({url:updatedCollection.url})
 
                     }
-                    const updatedCollection =await collectionModel.findByIdAndUpdate(req.params.id,{name:req.body.name,description:req.body.description,src:req.file.filename},{new:true}).exec()
+                    const src =await  upload(req.file.path)
+                    
+                    const updatedCollection =await collectionModel.findByIdAndUpdate(req.params.id,{name:req.body.name,description:req.body.description,src:src},{new:true}).exec()
                     console.log(updatedCollection)
-                    res.send({url:updatedCollection.url})
+                   return res.send({url:updatedCollection.url})
         
                 }
         
@@ -191,7 +193,8 @@ exports.create_post =[
             
             else{
                 //creating collection
-                const src = req.file.filename
+                const src = await upload(req.file.path)
+
                 const updatedCollection =new collectionModel({name:req.body.name,description:req.body.description,src:src})
                  await updatedCollection.save()
                 res.redirect('/collection')
@@ -241,8 +244,8 @@ exports.create_post_api =[
                     return res.status(400).send({title:'create collection',errors:errors.array()})
   
                 }
-                console.log('got here')
-                const src = req.file.filename
+                const src =await upload(req.file.path)
+                
                 const updatedCollection =new collectionModel({name:req.body.name,description:req.body.description,src:src})
                  await updatedCollection.save()
 
