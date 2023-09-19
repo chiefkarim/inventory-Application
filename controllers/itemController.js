@@ -36,7 +36,7 @@ exports.edit_get_api = asyncHandler(async(req,res,next)=>{
         const collections = await collectionModel.find({})
         if(req.params.id){
             let item = await itemModel.findById({_id: req.params.id});
-            res.send({title:'item',item:item,collections:collections,})
+           return res.send({title:'item',item:item,collections:collections})
         }
         res.send({title:'item',collections:collections,})
 
@@ -179,7 +179,7 @@ exports.edit_post_api = [
 
             } else{
     
-                if (!req.body.id) {
+                if (!req.params.id) {
                     // setting collection
                     let categoryId=await collectionModel.find({name:req.body.category},{_id:1})
                     categoryId=categoryId[0]['_id']
@@ -195,8 +195,7 @@ exports.edit_post_api = [
                             category:categoryId,
                             src:src});
                              await item.save()
-    
-                            res.send({url:item.url})
+                           return res.send({url:item.url})
                 }
                 const itemExists = await itemModel.find({name: req.body.name}).exec()
     
@@ -218,7 +217,7 @@ exports.edit_post_api = [
             src:src}, 
       { new: true } // This option returns the modified document
     ).exec();
-    res.send({url:item.url})
+   return res.send({url:item.url})
                 }
             }
         
