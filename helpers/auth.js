@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken') 
 module.exports=function authenticate(req, res, next) {
+  const jwt = require('jsonwebtoken') 
   const bearerHeader = req.headers["authorization"];
 
   if (typeof bearerHeader !== "undefined") {
@@ -10,12 +10,12 @@ module.exports=function authenticate(req, res, next) {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
       if (err || user.username !== "admin") {
         console.log("eror", err);
-        res.sendStatus(403);
+       return res.sendStatus(403);
       }
       req.user = user;
       next();
     });
   } else {
-    res.sendStatus(403);
+    return res.sendStatus(403).send({errors:'Forrbiden'});
   }
 }

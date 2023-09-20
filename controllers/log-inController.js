@@ -50,8 +50,10 @@ exports.logIn_post_api = [
         }else{
            
             passport.authenticate('local', function(err, user, info, status) {
-                if (err) { return next(err) }
+                if (err) { console.log('',err)
+                    return res.send({errors:[err]}) }
                 if (!user) { return   res.send({title:'Log in',errors:[info]})  }
+                
                const accessToken = jwt.sign({username:req.body.username}, process.env.ACCESS_TOKEN_SECRET)
                 res.send({accessToken:accessToken});
             })(req, res, next)

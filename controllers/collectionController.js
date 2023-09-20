@@ -171,7 +171,7 @@ exports.create_post =[
     .isLength({min:3})
     .escape(),
     asyncHandler(async(req,res,next)=>{
-
+console.log('hello')
             //initializing errors
             const errors = validationResult(req)
             //checking that the collection exists
@@ -206,7 +206,7 @@ exports.create_post =[
 //API handling create item request Post
 exports.create_post_api =[
     //sanitizing user input    
-    
+
     body('description','wrong description')
     .trim()
     .escape(),
@@ -254,6 +254,11 @@ exports.create_post_api =[
         
     })
 ]
+
+exports.create_get_api = asyncHandler(async(req,res,next)=>{
+    const collections =await collectionModel.find({})
+    res.send({collection:collections})
+})
 
 //handling deleting a collection
 exports.delete = asyncHandler(async(req,res,next)=>{

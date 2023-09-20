@@ -11,9 +11,12 @@ const compression = require('compression')
 const helmet = require('helmet')
 const cors = require('cors')
 
+app.use(express.static('uploads'));
+
 //allowing access from anaywhere
 app.options('*', cors()) 
 app.use(cors())
+
 //connecting to database
 mongoose.set("strictQuery", false);
 
@@ -81,14 +84,18 @@ passport.deserializeUser(async function(id,done){
 passport.use(new LocalStrategy(async(username, password, done)=>{
   try{
     const bcrypt = require('bcryptjs')
+    console.log('user',username)
     const user = await userModel.findOne({username:username})
     if(!user){
+      console.log('wrong username')
       return done(null, false,{ msg:'user does not exist. please check your username and try again.'})
     }  
     const match =await bcrypt.compare(password,user.password)
     if(!match){
+      console.log('wrong password')
       return done(null, false,{ msg:'wrong password. please try again.'})
     }
+    console.log('found')
     return done(null,user)
   }catch(err){
     return done(err)
