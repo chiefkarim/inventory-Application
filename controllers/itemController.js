@@ -297,6 +297,12 @@ exports.create_post_api = [
           
         
 })]
+//handleing creating item GET API
+exports.create_get_api =asyncHandler(async(req,res,next)=>{
+    const collections = await collectionModel.find({})
+    res.send({title:"collections create",collections:collections})
+
+})
 
 //handling deleting a item
 exports.delete = asyncHandler(async(req,res,next)=>{

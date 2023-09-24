@@ -20,7 +20,7 @@ router.get('/create',authenticate,item_controller.edit_get)
 router.post('/create',authenticate,upload.array('src',10),item_controller.edit_post)
 
 //creating  item
-router.get('/create/api',authenticate,item_controller.edit_get_api)
+router.get('/create/api',authenticate,item_controller.create_get_api)
 router.post('/create/api',authenticate,upload.array('src',10),item_controller.create_post_api)
 
 //editing item
