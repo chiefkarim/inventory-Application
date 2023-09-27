@@ -55,7 +55,7 @@ exports.logIn_post_api = [
                 if (!user) { return   res.send({title:'Log in',errors:[info]})  }
                 
                const accessToken = jwt.sign({username:req.body.username}, process.env.ACCESS_TOKEN_SECRET)
-                res.send({accessToken:accessToken});
+                res.send({accessToken:accessToken,username:user.username});
             })(req, res, next)
         }
     }),
